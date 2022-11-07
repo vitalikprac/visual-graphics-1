@@ -5,11 +5,6 @@ let surface;                    // A surface model
 let shProgram;                  // A shader program
 let spaceball;                  // A SimpleRotator object that lets the user rotate the view by mouse.
 
-function deg2rad(angle) {
-  return angle * Math.PI / 180;
-}
-
-
 // Constructor
 function Model(name) {
   this.name = name;
@@ -63,7 +58,7 @@ function draw() {
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   /* Set the values of the projection transformation */
-  let projection = m4.perspective(Math.PI/8, 1, 8, 12); // TODO: ///////
+  let projection = m4.perspective(Math.PI/8, 1, 8, 12);
 
   /* Get the view matrix from the SimpleRotator object.*/
   let modelView = spaceball.getViewMatrix();
@@ -86,51 +81,28 @@ function draw() {
   surface.Draw();
 }
 
-
-
-// worked
-function oneSheetedHyperboloid(vertexList){
-  let a = 1;
-  let c = 1;
-  for (let u = -10; u < 7; u+=0.05) {
-    for (let v = -10; v < 7; v += 0.05) {
-      let x = a * Math.sqrt(u * u + 1) * Math.cos(v);
-      let y = a * Math.sqrt(u * u + 1) * Math.sin(v);
-      let z = c * u;
-      vertexList.push(x, y, z);
-    }
-  }
-}
-
-// TODO: 
-function my(vertexList){
+function circularWaves(vertexList){
    let m = 6;
    let b = 6;
    let a = 4;
    let n = 0.5;
-   
    let phi = 0;
-  
     for (let r = 0; r <= b; r += 0.05) {
-      for (let u = -10; u <= 10; u += 0.01) {
+      for (let u = 0; u < 2 * Math.PI; u += 0.1) {
         let x = r * Math.cos(u);
         let y = r * Math.sin(u);
         let w = m * Math.PI / b;
         let z = a * Math.pow(Math.E, -n * r) * Math.sin(w * r + phi);
-        vertexList.push(x, y, z);
+        vertexList.push(x/3, y/3, z/3);
       }
     }
-  
-  /*let x = v*cos(u);
-  let y = v*sin(u);
-  let z = a*exp(-n*v)*sin(m*pi*v/b + phi);*/
 }
 
 
 function CreateSurfaceData()
 {
   let vertexList = [];
-  my(vertexList);
+  circularWaves(vertexList);
   return vertexList;
 }
 
@@ -211,7 +183,7 @@ function init() {
     return;
   }
 
-  spaceball = new TrackballRotator(canvas, draw, 4);
+  spaceball = new TrackballRotator(canvas, draw, 1);
 
   draw();
 }
