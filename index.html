@@ -12,9 +12,17 @@
   </head>
   <body>
     <div id="app">
+      <h1>Practical assignment #1</h1>
+      <h2>Author: <span>Prachov Vitalii TR21mp</span></h2>
+      <h3>Variant 20: <span>Surface of Revolution with Damping Circular Waves</span></h3>
+      <fieldset>
+        <legend>Controls</legend>
+        <input type="range" min="1" max="5" id="zoom" value="3">
+        <label for="zoom">Zoom (<span id="zoom-text">3</span>)</label><br>
+      </fieldset>
     </div>
     <div id="canvas-holder">
-      <canvas width="600" height="600" id="webglcanvas" style="background-color:red"></canvas>
+      <canvas height="600" width="800"  id="webglcanvas" style="background-color:red"></canvas>
     </div>
     <script type="module" src="/main.js"></script>
   </body>

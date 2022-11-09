@@ -5,6 +5,11 @@ let surface;                    // A surface model
 let shProgram;                  // A shader program
 let spaceball;                  // A SimpleRotator object that lets the user rotate the view by mouse.
 
+const MAX_ZOOM = 5;
+export const settings = {
+  zoom: 3,
+}
+
 // Constructor
 function Model(name) {
   this.name = name;
@@ -81,7 +86,7 @@ function draw() {
   surface.Draw();
 }
 
-function circularWaves(vertexList){
+function circularWaves(vertexList, zoom = 1){
    let m = 6;
    let b = 6;
    let a = 4;
@@ -93,7 +98,7 @@ function circularWaves(vertexList){
         let y = r * Math.sin(u);
         let w = m * Math.PI / b;
         let z = a * Math.pow(Math.E, -n * r) * Math.sin(w * r + phi);
-        vertexList.push(x/3, y/3, z/3);
+        vertexList.push(x/zoom, y/zoom, z/zoom);
       }
     }
 }
@@ -102,7 +107,7 @@ function circularWaves(vertexList){
 function CreateSurfaceData()
 {
   let vertexList = [];
-  circularWaves(vertexList);
+  circularWaves(vertexList, settings.zoom);
   return vertexList;
 }
 
@@ -185,7 +190,25 @@ function init() {
 
   spaceball = new TrackballRotator(canvas, draw, 1);
 
+  
+  handleInput('zoom',(value)=>{
+    settings.zoom = MAX_ZOOM - value + 1;
+    initGL();
+    draw();
+  })
   draw();
+}
+
+
+function handleInput(key,onChange){
+  const input  = document.getElementById(key)
+  const inputText = document.getElementById(`${key}-text`)
+  
+  input.addEventListener('input', (event) => {
+    const value = event.target.value; 
+    inputText.innerText = value;
+    onChange(value)
+  })
 }
 
 document.addEventListener('DOMContentLoaded', init);
