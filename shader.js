@@ -1,5 +1,5 @@
 // Vertex shader
-const vertexShaderSource = `
+export const vertexShaderSource = `
 attribute vec3 vertex;
 uniform mat4 ModelViewProjectionMatrix;
 
@@ -9,7 +9,7 @@ void main() {
 
 
 // Fragment shader
-const fragmentShaderSource = `
+export const fragmentShaderSource = `
 #ifdef GL_FRAGMENT_PRECISION_HIGH
    precision highp float;
 #else

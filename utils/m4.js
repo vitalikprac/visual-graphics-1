@@ -40,7 +40,7 @@
     define([], factory);
   } else {
     // Browser globals
-    root.m4 = factory();
+    window.m4 = factory();
   }
 }(this, function() {
   "use strict";

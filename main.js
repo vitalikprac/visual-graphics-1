@@ -1,4 +1,7 @@
 import './style.css'
+import './utils/m4.js';
+import { fragmentShaderSource, vertexShaderSource } from './shader.js';
+import { TrackballRotator } from './utils/trackball-rotator.js';
 
 let gl;                         // The webgl context.
 let surface;                    // A surface model
