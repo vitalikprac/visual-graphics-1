@@ -12,6 +12,7 @@ uniform float u_frame;
 
 // Common varyings
 varying vec3 v_position;
+varying vec3 v_normal;
 
 /*
  *  Calculates the diffuse factor produced by the light illumination
@@ -35,7 +36,7 @@ void main() {
     vec3 light_direction = -vec3((u_mouse - 0.5 * u_resolution) / min_resolution, 0.5);
 
     // Calculate the light diffusion factor
-    // float df = diffuseFactor(normal, light_direction);
+    float df = diffuseFactor(v_normal, light_direction);
 
     // Define the toon shading steps
     float nSteps = 4.0;
