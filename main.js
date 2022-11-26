@@ -1,6 +1,7 @@
 import './style.css'
 import './utils/m4.js';
-import { fragmentShaderSource, vertexShaderSource } from './shader.js';
+import fragmentShaderSource from './fragmentShader.glsl';
+import vertexShaderSource from './vertexShader.glsl';
 import { TrackballRotator } from './utils/trackball-rotator.js';
 
 let gl;                         // The webgl context.
@@ -30,7 +31,7 @@ function Model(name) {
   this.Draw = function() {
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.iVertexBuffer);
-    gl.vertexAttribPointer(shProgram.iAttribVertex, 3, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribPointer(shProgram.iAttribVertex, 3, gl.FLOAT, true, 0, 0);
     gl.enableVertexAttribArray(shProgram.iAttribVertex);
 
     gl.drawArrays(gl.TRIANGLES, 0, this.count);
