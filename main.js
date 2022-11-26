@@ -33,7 +33,7 @@ function Model(name) {
     gl.vertexAttribPointer(shProgram.iAttribVertex, 3, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(shProgram.iAttribVertex);
 
-    gl.drawArrays(gl.LINE_STRIP, 0, this.count);
+    gl.drawArrays(gl.TRIANGLES, 0, this.count);
   }
 }
 
@@ -95,8 +95,8 @@ function circularWaves(vertexList, zoom = 1){
    let a = 4;
    let n = 0.5;
    let phi = 0;
-    for (let r = 0; r <= b; r += 0.05) {
-      for (let u = 0; u < 2 * Math.PI; u += 0.1) {
+    for (let r = 0; r <= b; r += 0.001) {
+      for (let u = 0; u < 2 * Math.PI; u += 0.5) {
         let x = r * Math.cos(u);
         let y = r * Math.sin(u);
         let w = m * Math.PI / b;
