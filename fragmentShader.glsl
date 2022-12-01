@@ -3,49 +3,32 @@ precision highp float;
 #else
 precision mediump float;
 #endif
-#define GLSLIFY 1
-// Common uniforms
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-uniform float u_frame;
 
-// Common varyings
-varying vec3 v_position;
+uniform vec4 color;
+uniform vec3 LightDirection;
+
 varying vec3 v_normal;
+varying vec3 v_surfaceToLight;
+varying vec3 v_surfaceToView;
 
-/*
- *  Calculates the diffuse factor produced by the light illumination
- */
-float diffuseFactor(vec3 normal, vec3 light_direction) {
-    float df = dot(normalize(normal), normalize(light_direction));
-
-    if (gl_FrontFacing) {
-        df = -df;
-    }
-
-    return max(0.0, df);
-}
-
-/*
- * The main program
- */
 void main() {
-    // Use the mouse position to define the light direction
-    float min_resolution = min(u_resolution.x, u_resolution.y);
-    vec3 light_direction = -vec3((u_mouse - 0.5 * u_resolution) / min_resolution, 0.5);
+    vec3 normal = normalize(v_normal);
 
-    // Calculate the light diffusion factor
-    float df = diffuseFactor(v_normal, light_direction);
+    vec3 surfaceToLightDirection = normalize(v_surfaceToLight);
+    vec3 surfaceToViewDirection = normalize(v_surfaceToView);
+    vec3 halfVector = normalize(surfaceToLightDirection + surfaceToViewDirection);
 
-    // Define the toon shading steps
-    float nSteps = 4.0;
-    float step = sqrt(1.0) * nSteps;
-    step = (floor(step) + smoothstep(0.48, 0.52, fract(step))) / nSteps;
+    float shininess = 4.0;
 
-    // Calculate the surface color
-    float surface_color = step * step;
+    float innerLimit = cos(5.0 * 3.1415 / 180.0);
+    float outerLimit = cos(15.0 * 3.1415 / 180.0);
 
-    // Fragment shader output
-    gl_FragColor = vec4(vec3(surface_color), 1.0);
+    float dotFromDirection = dot(surfaceToLightDirection, -LightDirection);
+    float inLight = smoothstep(outerLimit, innerLimit, dotFromDirection);
+    float light = inLight * dot(normal, surfaceToLightDirection);
+    float specular = inLight * pow(dot(normal, halfVector), shininess);
+
+    gl_FragColor = color;
+    gl_FragColor.rgb *= light;
+    gl_FragColor.rgb += specular;
 }
