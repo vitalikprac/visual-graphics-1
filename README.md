@@ -7,6 +7,9 @@ Surface of Revolution with Damping Circular Waves using WebGL
 
 [https://vitalikprac.github.io/visual-graphics-1/](https://vitalikprac.github.io/visual-graphics-1/)
 
+## Report
+[Report_Prachov.pdf](https://github.com/vitalikprac/visual-graphics-1/blob/main/Report_Prachov.pdf)
+
 ## Screenshots
 
 ![IMG_0977 (1)](https://user-images.githubusercontent.com/42850697/209880619-553446ca-182f-4dd9-aa8d-001137c6b518.gif)
