@@ -6,12 +6,21 @@ precision mediump float;
 
 uniform vec4 color;
 uniform vec3 LightDirection;
+uniform bool bDrawpoint;
 
 varying vec3 v_normal;
 varying vec3 v_surfaceToLight;
 varying vec3 v_surfaceToView;
+varying vec2 v_textcoord;
+
+uniform sampler2D u_texture;
 
 void main() {
+    if (bDrawpoint == true) {
+        gl_FragColor = color;
+    }
+    else
+    {
     vec3 normal = normalize(v_normal);
 
     vec3 surfaceToLightDirection = normalize(v_surfaceToLight);
@@ -28,7 +37,12 @@ void main() {
     float light = inLight * dot(normal, surfaceToLightDirection);
     float specular = inLight * pow(dot(normal, halfVector), shininess);
 
+    vec4 TextureColor = texture2D(u_texture, v_textcoord);
+
     gl_FragColor = color;
     gl_FragColor.rgb *= light;
     gl_FragColor.rgb += specular;
+
+    gl_FragColor += TextureColor;
+    }
 }
