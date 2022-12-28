@@ -1,4 +1,4 @@
-# Practial Assignment #2
+# Graphics work
 ## Author Prachov Vitalii TR21mp
 Visualization of
 Surface of Revolution with Damping Circular Waves using WebGL
@@ -9,7 +9,14 @@ Surface of Revolution with Damping Circular Waves using WebGL
 
 ## Screenshots
 
-![example](https://user-images.githubusercontent.com/42850697/208534390-97bef8a3-ea6f-4e91-aebf-f56e33c08d62.gif)
+![IMG_0977 (1)](https://user-images.githubusercontent.com/42850697/209880619-553446ca-182f-4dd9-aa8d-001137c6b518.gif)
+
+
+![IMG_0977 (2)](https://user-images.githubusercontent.com/42850697/209880671-3f8bb90b-b9b9-40b5-bca4-b0e7aa2686f8.gif)
+
+
+![1](https://user-images.githubusercontent.com/42850697/209880748-2fde4d61-a139-41b6-a99d-d81a5f12d1ab.gif)
+
 
 ## Installation
 
